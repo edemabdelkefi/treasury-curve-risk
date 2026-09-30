@@ -1,4 +1,42 @@
-# Treasury curve risk: PCA and regime-robust hedging
+# Treasury curve risk: chronological hedging and tail-risk inference
+
+Research on yield-curve factor models, constrained hedging and conditional loss forecasts. The repository contains a fixed-calibration benchmark and an annual walk-forward study using the same immutable Federal Reserve curve snapshot. The experiments answer different questions and retain separate protocols and results.
+
+![Chronological hedge research](results/research/walk_forward.png)
+
+## Annual walk-forward study
+
+Each 2020-2025 hedge is fitted on the preceding 1,260 observed sessions. A chronological 252-session validation block selects diagonal covariance shrinkage and the number of PCA factors. The selected settings are refitted on the complete past window before the next calendar year begins. All hedges satisfy parallel DV01 neutrality and a gross market-value cap of 1.5.
+
+The study adds matched-shrinkage minimax optimization across three training blocks, pre-shock EWMA covariance forecasts, Gaussian and Student t VaR, paired loss tests with Newey-West errors and Holm adjustment, block-length sensitivity of bootstrap intervals, implementation-cost accounting, and second-order P&L attribution.
+
+| Annual strategy | RMS shock P&L, bp | 99% expected shortfall, bp | RMS reduction vs annual DV01 |
+| --- | ---: | ---: | ---: |
+| dv01 | 14.654 | 61.082 | baseline |
+| pca_cv | 4.468 | 27.260 | 69.51% |
+| shrinkage_cv | 2.017 | 10.525 | 86.24% |
+| minimax_cv | 2.392 | 13.201 | 83.67% |
+
+The covariance hedge's paired 10-session block-bootstrap interval for RMS reduction is **[84.11%, 88.28%]**, using 2,000 resamples. All three paired squared-loss comparisons against DV01 have Holm-adjusted asymptotic p-values below 6e-14. These are conditional, descriptive comparisons over one holdout period; the uncertainty calculations do not reproduce model selection or guarantee performance under a different regime.
+
+Tail forecasts remain imperfect. The covariance hedge exceeds its Gaussian 99% VaR in **2.33%** of sessions and its variance-matched Student t VaR in **1.73%**, against a 1% target. Sparse exception-transition tables are flagged, so the asymptotic independence test should be read cautiously. The second-order approximation reduces this hedge's repricing RMSE from **0.0669 bp to 0.00171 bp**.
+
+Hedge implementation costs total 4.850 bp for the covariance strategy over six annual calibrations at an assumed one-way cost of 2 bp on traded hedge market value. This is a sensitivity assumption, not an observed execution cost. Constant-maturity shock P&L excludes bond aging, carry, roll-down and financing. Summing it does not produce an investable return series.
+
+## Run the research study
+
+After installing the package as shown below:
+
+```bash
+python -m curve_risk.research
+python -m unittest discover -s tests -v
+# Smaller end-to-end check, in a separate output directory:
+python -m curve_risk.research --quick --output /tmp/curve-research
+```
+
+[`docs/research.md`](docs/research.md) derives the optimization, forecasting and inference formulas. [`results/research/`](results/research) contains daily forecasts, validation scores, weights, annual comparisons, bootstrap intervals, figures, the complete protocol, package versions and source-code and data checksums. CI runs the mathematical tests and a small research experiment.
+
+## Fixed-calibration benchmark
 
 How much yield-curve risk remains after matching duration, and does a hedge designed for the worst historical regime improve the result?
 

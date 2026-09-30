@@ -1,0 +1,46 @@
+{
+  "seed": 20261001,
+  "test_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "lookback_sessions": 1260,
+  "validation_sessions": 252,
+  "shrinkage_grid": [
+    0.0,
+    0.01,
+    0.05,
+    0.15,
+    0.35,
+    0.65,
+    1.0
+  ],
+  "factor_grid": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "regime_blocks": 3,
+  "ewma_decay": 0.97,
+  "student_degrees_of_freedom": 5,
+  "tail_probability": 0.01,
+  "hac_lag": 10,
+  "bootstrap_draws": 2000,
+  "bootstrap_blocks": [
+    5,
+    10,
+    20
+  ],
+  "one_way_cost_bp": 2.0,
+  "gross_hedge_cap": 1.5,
+  "scope": "annual calibration, fixed faces within each year, constant-maturity shock repricing",
+  "selection": "one chronological validation block inside each trailing training window; exact repricing MSE",
+  "forecast": "pre-shock EWMA covariance; Gaussian and variance-matched Student t innovations",
+  "cost_scope": "hedge implementation only; annual target rescaling, carry, roll-down and funding excluded"
+}

@@ -1,0 +1,481 @@
+{
+  "protocol": {
+    "seed": 20261001,
+    "test_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "lookback_sessions": 1260,
+    "validation_sessions": 252,
+    "shrinkage_grid": [
+      0.0,
+      0.01,
+      0.05,
+      0.15,
+      0.35,
+      0.65,
+      1.0
+    ],
+    "factor_grid": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "regime_blocks": 3,
+    "ewma_decay": 0.97,
+    "student_degrees_of_freedom": 5,
+    "tail_probability": 0.01,
+    "hac_lag": 10,
+    "bootstrap_draws": 2000,
+    "bootstrap_blocks": [
+      5,
+      10,
+      20
+    ],
+    "one_way_cost_bp": 2.0,
+    "gross_hedge_cap": 1.5,
+    "scope": "annual calibration, fixed faces within each year, constant-maturity shock repricing",
+    "selection": "one chronological validation block inside each trailing training window; exact repricing MSE",
+    "forecast": "pre-shock EWMA covariance; Gaussian and variance-matched Student t innovations",
+    "cost_scope": "hedge implementation only; annual target rescaling, carry, roll-down and funding excluded"
+  },
+  "source_sha256": "379cae673092e64aea0baa58796b276ebc5c9c7f2c342d66e7b1fe1e52fd0421",
+  "excluded_source_rows": 408,
+  "risk": [
+    {
+      "strategy": "dv01",
+      "observations": 1500,
+      "rms_bp": 14.653836243671948,
+      "std_bp": 14.658704622506024,
+      "es99_bp": 61.08230650395213,
+      "worst_loss_bp": 92.11083905053934,
+      "mean_bp": -0.023392177055230255,
+      "es_tail_observations": 15,
+      "annualized_shock_vol_bp": 232.69972184102332,
+      "total_implementation_cost_bp": 3.2662699334658587,
+      "linear_rmse_bp": 0.26748505156524044,
+      "quadratic_rmse_bp": 0.005136691066555386
+    },
+    {
+      "strategy": "minimax_cv",
+      "observations": 1500,
+      "rms_bp": 2.3924515653192717,
+      "std_bp": 2.393146174018859,
+      "es99_bp": 13.201103885970333,
+      "worst_loss_bp": 24.029061583722566,
+      "mean_bp": -0.022225688988448886,
+      "es_tail_observations": 15,
+      "annualized_shock_vol_bp": 37.990017764877635,
+      "total_implementation_cost_bp": 5.02782284907307,
+      "linear_rmse_bp": 0.07557369373138724,
+      "quadratic_rmse_bp": 0.0019655384846548043
+    },
+    {
+      "strategy": "pca_cv",
+      "observations": 1500,
+      "rms_bp": 4.467586329835639,
+      "std_bp": 4.469038884204335,
+      "es99_bp": 27.260061706313753,
+      "worst_loss_bp": 43.91506250623081,
+      "mean_bp": -0.018273980672905494,
+      "es_tail_observations": 15,
+      "annualized_shock_vol_bp": 70.94379292249353,
+      "total_implementation_cost_bp": 6.949076808351396,
+      "linear_rmse_bp": 0.11108891869784865,
+      "quadratic_rmse_bp": 0.002788464801187373
+    },
+    {
+      "strategy": "shrinkage_cv",
+      "observations": 1500,
+      "rms_bp": 2.0167474840306983,
+      "std_bp": 2.0173795050691656,
+      "es99_bp": 10.525083657048876,
+      "worst_loss_bp": 17.935617562195375,
+      "mean_bp": -0.012789067571722375,
+      "es_tail_observations": 15,
+      "annualized_shock_vol_bp": 32.02490682270948,
+      "total_implementation_cost_bp": 4.84963630597188,
+      "linear_rmse_bp": 0.06692764353499665,
+      "quadratic_rmse_bp": 0.0017114473581819596
+    }
+  ],
+  "paired_tests": [
+    {
+      "strategy": "minimax_cv",
+      "mean_difference_bp2": -209.01109216395497,
+      "hac_standard_error": 27.42664296070258,
+      "z_statistic": -7.620731872414355,
+      "two_sided_p": 2.5224141459230038e-14,
+      "holm_p": 5.0448282918460076e-14
+    },
+    {
+      "strategy": "pca_cv",
+      "mean_difference_bp2": -194.77558904181933,
+      "hac_standard_error": 24.360254815299037,
+      "z_statistic": -7.995630198395704,
+      "two_sided_p": 1.2891276794989723e-15,
+      "holm_p": 3.867383038496917e-15
+    },
+    {
+      "strategy": "shrinkage_cv",
+      "mean_difference_bp2": -210.66764624200948,
+      "hac_standard_error": 27.762444875635158,
+      "z_statistic": -7.588223846484621,
+      "two_sided_p": 3.2432028834231e-14,
+      "holm_p": 5.0448282918460076e-14
+    }
+  ],
+  "tail_backtests": {
+    "dv01": {
+      "gaussian": {
+        "exceptions": 33,
+        "observations": 1500,
+        "exception_rate": 0.022,
+        "exact_binomial_p": 4.0638534681247444e-05,
+        "independence_lr": 0.0967467751681852,
+        "independence_asymptotic_p": 0.7557691211812345,
+        "transition_counts": [
+          [
+            1434,
+            32
+          ],
+          [
+            32,
+            1
+          ]
+        ],
+        "independence_sparse": true
+      },
+      "student": {
+        "exceptions": 23,
+        "observations": 1500,
+        "exception_rate": 0.015333333333333332,
+        "exact_binomial_p": 0.04962047411310108,
+        "independence_lr": 0.7168311797233571,
+        "independence_asymptotic_p": 0.39718531082951014,
+        "transition_counts": [
+          [
+            1453,
+            23
+          ],
+          [
+            23,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      }
+    },
+    "minimax_cv": {
+      "gaussian": {
+        "exceptions": 36,
+        "observations": 1500,
+        "exception_rate": 0.024,
+        "exact_binomial_p": 2.863970729767604e-06,
+        "independence_lr": 1.7718808207115444,
+        "independence_asymptotic_p": 0.18314948385531524,
+        "transition_counts": [
+          [
+            1427,
+            36
+          ],
+          [
+            36,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      },
+      "student": {
+        "exceptions": 26,
+        "observations": 1500,
+        "exception_rate": 0.017333333333333333,
+        "exact_binomial_p": 0.008634586169198866,
+        "independence_lr": 0.9179023852847195,
+        "independence_asymptotic_p": 0.33802634080548477,
+        "transition_counts": [
+          [
+            1447,
+            26
+          ],
+          [
+            26,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      }
+    },
+    "pca_cv": {
+      "gaussian": {
+        "exceptions": 32,
+        "observations": 1500,
+        "exception_rate": 0.021333333333333333,
+        "exact_binomial_p": 0.00011915844434276618,
+        "independence_lr": 1.3961570845518168,
+        "independence_asymptotic_p": 0.23736806107356564,
+        "transition_counts": [
+          [
+            1435,
+            32
+          ],
+          [
+            32,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      },
+      "student": {
+        "exceptions": 26,
+        "observations": 1500,
+        "exception_rate": 0.017333333333333333,
+        "exact_binomial_p": 0.008634586169198866,
+        "independence_lr": 0.9179023852847195,
+        "independence_asymptotic_p": 0.33802634080548477,
+        "transition_counts": [
+          [
+            1447,
+            26
+          ],
+          [
+            26,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      }
+    },
+    "shrinkage_cv": {
+      "gaussian": {
+        "exceptions": 35,
+        "observations": 1500,
+        "exception_rate": 0.023333333333333334,
+        "exact_binomial_p": 6.673885178020329e-06,
+        "independence_lr": 1.6736567186687807,
+        "independence_asymptotic_p": 0.1957694621769701,
+        "transition_counts": [
+          [
+            1429,
+            35
+          ],
+          [
+            35,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      },
+      "student": {
+        "exceptions": 26,
+        "observations": 1500,
+        "exception_rate": 0.017333333333333333,
+        "exact_binomial_p": 0.008634586169198866,
+        "independence_lr": 0.9179023852847195,
+        "independence_asymptotic_p": 0.33802634080548477,
+        "transition_counts": [
+          [
+            1447,
+            26
+          ],
+          [
+            26,
+            0
+          ]
+        ],
+        "independence_sparse": true
+      }
+    }
+  },
+  "optimization": [
+    {
+      "year": 2020,
+      "strategy": "pca_cv",
+      "iterations": 40,
+      "parallel_exposure_residual": 2.220446049250313e-16,
+      "gross_hedge_ratio": 1.4512126734763635,
+      "worst_regime_linear_variance_bp2": 7.199816442918624e-12,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2020,
+      "strategy": "shrinkage_cv",
+      "iterations": 29,
+      "parallel_exposure_residual": 1.9984014443252818e-15,
+      "gross_hedge_ratio": 1.5,
+      "worst_regime_linear_variance_bp2": 1.4767788284776295,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2020,
+      "strategy": "minimax_cv",
+      "iterations": 32,
+      "parallel_exposure_residual": -1.021405182655144e-14,
+      "gross_hedge_ratio": 1.4999999999999982,
+      "worst_regime_linear_variance_bp2": 2.3173379542470407,
+      "normalized_epigraph_slack": -3.3945502658783155e-14
+    },
+    {
+      "year": 2021,
+      "strategy": "pca_cv",
+      "iterations": 31,
+      "parallel_exposure_residual": -2.220446049250313e-16,
+      "gross_hedge_ratio": 1.4671366078768127,
+      "worst_regime_linear_variance_bp2": 0.00027528243614617973,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2021,
+      "strategy": "shrinkage_cv",
+      "iterations": 27,
+      "parallel_exposure_residual": 6.661338147750939e-16,
+      "gross_hedge_ratio": 1.5,
+      "worst_regime_linear_variance_bp2": 1.489514428890813,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2021,
+      "strategy": "minimax_cv",
+      "iterations": 39,
+      "parallel_exposure_residual": -4.107825191113079e-14,
+      "gross_hedge_ratio": 1.5000000000000018,
+      "worst_regime_linear_variance_bp2": 2.0799037612117095,
+      "normalized_epigraph_slack": -1.0381127381331456e-13
+    },
+    {
+      "year": 2022,
+      "strategy": "pca_cv",
+      "iterations": 31,
+      "parallel_exposure_residual": 2.6645352591003757e-15,
+      "gross_hedge_ratio": 1.5,
+      "worst_regime_linear_variance_bp2": 0.01635529326044291,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2022,
+      "strategy": "shrinkage_cv",
+      "iterations": 26,
+      "parallel_exposure_residual": 6.661338147750939e-16,
+      "gross_hedge_ratio": 1.4999999999999998,
+      "worst_regime_linear_variance_bp2": 1.143439517324319,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2022,
+      "strategy": "minimax_cv",
+      "iterations": 29,
+      "parallel_exposure_residual": -8.881784197001252e-16,
+      "gross_hedge_ratio": 1.4999999999999982,
+      "worst_regime_linear_variance_bp2": 1.9858659360490425,
+      "normalized_epigraph_slack": -3.815843040849698e-13
+    },
+    {
+      "year": 2023,
+      "strategy": "pca_cv",
+      "iterations": 35,
+      "parallel_exposure_residual": 1.3322676295501878e-15,
+      "gross_hedge_ratio": 1.1539572869105468,
+      "worst_regime_linear_variance_bp2": 2.7059227977710105e-10,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2023,
+      "strategy": "shrinkage_cv",
+      "iterations": 25,
+      "parallel_exposure_residual": 6.661338147750939e-16,
+      "gross_hedge_ratio": 1.5000000000000002,
+      "worst_regime_linear_variance_bp2": 2.674701564488791,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2023,
+      "strategy": "minimax_cv",
+      "iterations": 29,
+      "parallel_exposure_residual": 2.2426505097428162e-14,
+      "gross_hedge_ratio": 1.5000000000000009,
+      "worst_regime_linear_variance_bp2": 4.917728378570859,
+      "normalized_epigraph_slack": -3.026503743799869e-13
+    },
+    {
+      "year": 2024,
+      "strategy": "pca_cv",
+      "iterations": 16,
+      "parallel_exposure_residual": 8.881784197001252e-16,
+      "gross_hedge_ratio": 1.0922362798982448,
+      "worst_regime_linear_variance_bp2": 3.937739788737126e-11,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2024,
+      "strategy": "shrinkage_cv",
+      "iterations": 22,
+      "parallel_exposure_residual": -1.3322676295501878e-15,
+      "gross_hedge_ratio": 1.4999999999999998,
+      "worst_regime_linear_variance_bp2": 3.5296193362183366,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2024,
+      "strategy": "minimax_cv",
+      "iterations": 30,
+      "parallel_exposure_residual": 6.217248937900877e-15,
+      "gross_hedge_ratio": 1.4999999999999993,
+      "worst_regime_linear_variance_bp2": 7.434594437242914,
+      "normalized_epigraph_slack": -1.5309012738051742e-12
+    },
+    {
+      "year": 2025,
+      "strategy": "pca_cv",
+      "iterations": 34,
+      "parallel_exposure_residual": -1.3322676295501878e-15,
+      "gross_hedge_ratio": 1.3046368828265658,
+      "worst_regime_linear_variance_bp2": 3.0024571251610357e-11,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2025,
+      "strategy": "shrinkage_cv",
+      "iterations": 26,
+      "parallel_exposure_residual": -4.440892098500626e-16,
+      "gross_hedge_ratio": 1.1603722985870435,
+      "worst_regime_linear_variance_bp2": 59.19502747593513,
+      "normalized_epigraph_slack": null
+    },
+    {
+      "year": 2025,
+      "strategy": "minimax_cv",
+      "iterations": 25,
+      "parallel_exposure_residual": -3.3306690738754696e-16,
+      "gross_hedge_ratio": 1.2772402385239958,
+      "worst_regime_linear_variance_bp2": 72.48103490953385,
+      "normalized_epigraph_slack": -6.5520505687644004e-15
+    }
+  ],
+  "last_fit_precedes_shock": true,
+  "code_sha256": {
+    "src/curve_risk/__init__.py": "eb948fc6c1b0e742519bea6a069fc3aacc624bd6d4852e2824094ddf4981f5c4",
+    "src/curve_risk/experiment.py": "6c6395efb0201c34aa62aebd33b311b2ecc176504a43d2be40e602baa398ff8c",
+    "src/curve_risk/research.py": "1e077a80367385b26e2b0ac5b5e670d1bbec01c2ac5ef661ec021f8de21b058d"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6"
+  },
+  "csv_sha256": {
+    "annual_risk.csv": "1398564f101c541ee00d8ed81ed1a671bcb1742e614b83e6d71606c7557c8740",
+    "bootstrap_intervals.csv": "b4ebb8e7730599101a87dca83444577f590526541eedd11dbccc1cb9c04b87da",
+    "daily_risk.csv": "63c13d3d25d3211e52ee090ff1eab0648e6ab9357d64ce23530efca384850275",
+    "hedge_weights.csv": "64548b6c32062950540fa75cf03b64f60f7312807d261491cc37433ec417f290",
+    "model_selection.csv": "d87b33c5caa0e11a53f6a958039354dcd47d5a0313b85eb6a9ef15ca952f909c",
+    "paired_loss_tests.csv": "6f77e343281f0c4dfef6282a4dfd1574678139e00d3525b9b53ca33a0aa81d1f",
+    "risk_summary.csv": "c288d1971a7a8416d68aa2dfb46e1de497409eb7b5d999a77d24c10142a769ed"
+  }
+}

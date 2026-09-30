@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "treasury-curve-risk"
-version = "0.1.0"
-description = "Reproducible mathematical and quantitative research"
+version = "0.2.0"
+description = "Chronological yield-curve hedging, conditional tail risk and statistical inference"
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.26", "matplotlib>=3.8", "pandas>=2.2", "scipy>=1.12"]
 
 [project.scripts]
 run-experiment = "curve_risk.experiment:run"
+curve-risk-research = "curve_risk.research:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
